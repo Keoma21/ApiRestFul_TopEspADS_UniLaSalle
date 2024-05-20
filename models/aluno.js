@@ -1,3 +1,14 @@
+/**
+ * Arquivo: aluno.js
+ * Descrição: Atividade Avaliativa API RestFul + CRUD + Node.JS + MongoDB
+ * Instituição: Universidade La Salle
+ * Curso: Análise e Desenvolvimento de Sistemas
+ * Disciplina: Tópicos Especiais em ADS
+ * Autor: Keoma da Silva
+ * Data: 01/05/2024 
+ *  
+ */
+
 // Define o modelo Aluno
 const mongoose = require("mongoose");
 

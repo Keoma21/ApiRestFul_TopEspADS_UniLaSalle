@@ -1,3 +1,15 @@
+/**
+ * Arquivo: index.js
+ * Descrição: Atividade Avaliativa API RestFul + CRUD + Node.JS + MongoDB
+ * Instituição: Universidade La Salle
+ * Curso: Análise e Desenvolvimento de Sistemas
+ * Disciplina: Tópicos Especiais em ADS
+ * Autor: Keoma da Silva
+ * Data: 01/05/2024 
+ *  
+ */
+
+
 //Configurações Iniciais
 const mongoose = require("mongoose");
 const express = require('express');
