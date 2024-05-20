@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const express = require('express');
 const boryParser = require('body-parser');
 const cors = require("cors");
+const { ChartJSNodeCanvas } = require('chartjs-node-canvas');
 
 //Inicialização do Express e definição de porta
 const app = express();
@@ -115,5 +116,47 @@ app.get('/aluno', async (req, res) => {
         res.json(alunos);
     } catch (error) {
         res.status(500).json({ error: 'Erro ao buscar alunos', message: error.message });
+    }
+});
+
+//7.Rota para gerar um gráfico dos alunos
+const width = 800; // largura do gráfico
+const height = 600; // altura do gráfico
+const chartCallback = (ChartJS) => {
+};
+const chartJSNodeCanvas = new ChartJSNodeCanvas({ width, height, chartCallback });
+
+app.get('/api/grafico', async (req, res) => {
+    try {
+        const alunos = await Aluno.find();
+        const nomes = alunos.map(aluno => aluno.nome);
+        const idades = alunos.map(aluno => aluno.idade);
+
+        const configuration = {
+            type: 'bar',
+            data: {
+                labels: nomes,
+                datasets: [{
+                    label: 'Idade dos Alunos',
+                    data: idades,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        };
+
+        const imageBuffer = await chartJSNodeCanvas.renderToBuffer(configuration);
+        res.set('Content-Type', 'image/png');
+        res.send(imageBuffer);
+    } catch (err) {
+        res.status(500).send(err);
     }
 });
